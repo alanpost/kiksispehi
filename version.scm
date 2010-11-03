@@ -18,10 +18,11 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category misc)
- (doc-from-wiki)
- (license "ISC")
- (needs jbogenturfahi)
- (test-depends test)
- (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
+(define kiksispehi-version-major 0)
+(define kiksispehi-version-minor 0)
+(define kiksispehi-version-patch 1)
+
+(define kiksispehi-version (format "~a.~a.~a"
+                            kiksispehi-version-major
+                            kiksispehi-version-minor
+                            kiksispehi-version-patch))

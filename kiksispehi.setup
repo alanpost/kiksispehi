@@ -18,10 +18,37 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category misc)
- (doc-from-wiki)
- (license "ISC")
- (needs jbogenturfahi)
- (test-depends test)
- (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
+(include "version.scm")
+(include "conf.scm")
+
+; dynamic library
+(compile -s
+         -O2
+         -d1
+         -o ,(dynld-name "kiksispehi")
+         -j kiksispehi
+         chicken-egg.scm)
+(compile -s -O2 -d1 kiksispehi.import.scm)
+
+; static library
+(compile -c
+         -O2
+         -d1
+         -o "kiksispehi.o"
+         "chicken-egg.scm"
+         -unit kiksispehi)
+
+; kiksispehi executable
+;
+
+(install-extension
+  ; lo cmene vi pagbu
+  'kiksispehi
+
+  ; lo datnyvei vi pagbu
+  `("kiksispehi.o"
+    ,(dynld-name "kiksispehi")
+    ,(dynld-name "kiksispehi.import"))
+
+  ; lo se ckaji vi pagbu
+  `((version trunk)))

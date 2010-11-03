@@ -18,10 +18,17 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category misc)
- (doc-from-wiki)
- (license "ISC")
- (needs jbogenturfahi)
- (test-depends test)
- (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
+(module kiksispehi
+  (kiksispehi-version
+   kiksispehi-version-major
+   kiksispehi-version-minor
+   kiksispehi-version-patch)
+
+(import chicken)
+(import scheme)
+
+(require-library jbogenturfahi)
+
+(import jbogenturfahi)
+
+(include "version.scm"))

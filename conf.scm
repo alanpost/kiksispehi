@@ -18,10 +18,5 @@
 ;;;; OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ;;;;
 
-((author "\".alyn.post.\" <alyn.post@lodockikumazvati.org>")
- (category misc)
- (doc-from-wiki)
- (license "ISC")
- (needs jbogenturfahi)
- (test-depends test)
- (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
+(define (dynld-name fn)
+  (make-pathname #f fn ##sys#load-dynamic-extension))
