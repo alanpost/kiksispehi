@@ -22,6 +22,6 @@
  (category misc)
  (doc-from-wiki)
  (license "ISC")
- (needs jbogenturfahi)
+ (needs irc jbogenturfahi sqlite3)
  (test-depends test)
  (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
