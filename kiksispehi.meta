@@ -24,4 +24,5 @@
  (license "ISC")
  (needs irc jbogenturfahi sqlite3)
  (test-depends test)
- (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u"))
+ (synopsis "la kiksispe'i cu ctuca fi la'e lu lo do ckiku ma zvati li'u lu'u")
+ (files "kiksispehi.setup" "kiksispehi.meta" "chicken-egg.scm" "version.scm" "kiksispehi.release-info" "conf.scm"))
