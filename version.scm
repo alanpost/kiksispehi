@@ -22,7 +22,8 @@
 (define kiksispehi-version-minor 0)
 (define kiksispehi-version-patch 1)
 
-(define kiksispehi-version (format "~a.~a.~a"
-                            kiksispehi-version-major
-                            kiksispehi-version-minor
-                            kiksispehi-version-patch))
+;(define kiksispehi-version (format "~a.~a.~a"
+;                            kiksispehi-version-major
+;                            kiksispehi-version-minor
+;                            kiksispehi-version-patch))
+(define kiksispehi-version "master")
