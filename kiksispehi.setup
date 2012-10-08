@@ -19,27 +19,62 @@
 ;;;;
 
 (include "version.scm")
-(include "conf.scm")
+(include "chicken-conf.scm")
 
-; dynamic library
-(compile -s
-         -O2
-         -d1
-         -o ,(dynld-name "kiksispehi")
-         -j kiksispehi
-         chicken-egg.scm)
-(compile -s -O2 -d1 kiksispehi.import.scm)
+(make (("kiksispehi" ("chicken-cmd.scm"
+                      "chicken-conf.scm"
+                      "chicken-declare.scm"
+                      "license.scm"
+                      "main-srfi-37.scm"
+                      "kiksispehi.meta"
+                      "kiksispehi.setup"
+                      (dynld-name "kiksispehi"))
+       (compile ,@kiksispehi-cscflags
+                -o "kiksispehi"
+                "chicken-cmd.scm"))
 
-; static library
-(compile -c
-         -O2
-         -d1
-         -o "kiksispehi.o"
-         "chicken-egg.scm"
-         -unit kiksispehi)
+       ; dynamic library
+       ;
+       ((dynld-name "kiksispehi") ("chicken-ext.scm"
+                                   "chicken-conf.scm"
+                                   "chicken-declare.scm"
+                                   "kiksispehi.scm"
+                                   "kiksispehi.meta"
+                                   "kiksispehi.setup")
+       (begin (compile -s
+                       ,@kiksispehi-cscflags
+                       -j kiksispehi
+                       -o ,(dynld-name "kiksispehi")
+                       chicken-ext.scm)
+              (compile -s
+                       ,@kiksispehi-cscflags
+                       -o ,(dynld-name "kiksispehi.import")
+                       kiksispehi.import.scm)))
 
-; kiksispehi executable
-;
+       ; static library
+       ;
+       ("kiksispehi.o" ("chicken-ext.scm"
+                        "chicken-conf.scm"
+                        "chicken-declare.scm"
+                        "kiksispehi.scm"
+                        "kiksispehi.meta"
+                        "kiksispehi.setup")
+       (compile -c
+                ,@kiksispehi-cscflags
+                -unit kiksispehi
+                -o "kiksispehi.o"
+                "chicken-ext.scm"))
+
+       ("license.scm" ("LICENSE")
+        (call-with-output-file "license.scm"
+          (lambda (port)
+            (write
+              `(define kiksispehi-license ,(read-all "LICENSE"))
+              port)))))
+
+      `("kiksispehi"
+        ,(dynld-name "kiksispehi")
+        "kiksispehi.o"))
 
 (install-extension
   ; lo cmene vi pagbu
@@ -51,4 +86,15 @@
     ,(dynld-name "kiksispehi.import"))
 
   ; lo se ckaji vi pagbu
-  `((version trunk)))
+  `((static "kiksispehi.o")
+    (version ,kiksispehi-version)))
+
+(install-program
+  ; lo cmene vi pagbu
+  'kiksispehi-cmd
+
+  ; lo datnyvei vi pagbu
+  `("kiksispehi")
+
+  ; lo se ckaji vi pagbu
+  `((version ,kiksispehi-version)))
